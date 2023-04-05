@@ -7,6 +7,5 @@ public interface AuthService {
 
     UserDto signUp(SignUpDto dto);
 
-
     UserDto forgotPassword(ForgotPasswordDto dto);
 }

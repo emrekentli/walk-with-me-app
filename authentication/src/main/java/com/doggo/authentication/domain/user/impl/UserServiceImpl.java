@@ -1,5 +1,4 @@
 package com.doggo.authentication.domain.user.impl;
-
 import com.doggo.authentication.domain.auth.api.SignInDto;
 import com.doggo.authentication.domain.auth.api.exception.UserAlreadyException;
 import com.doggo.authentication.domain.auth.api.exception.UserValidationException;
@@ -57,11 +56,14 @@ public class UserServiceImpl implements UserService {
 
     private User setUser(UserDto dto) {
         User user = new User();
-        user.setPassword(dto.getPassword());
-        user.setFirstName(dto.getFirstName());
-        user.setLastName(dto.getLastName());
+        user.setName(dto.getName());
         user.setPhoneNumber(dto.getPhoneNumber());
-        user.setEmailAddress(dto.getEmailAddress());
+        user.setPassword(dto.getPassword());
+        user.setEmailAddress(dto.getEmail());
+        user.setSurname(dto.getSurname());
+        user.setBirthDate(dto.getBirthDate());
+        user.setCity(dto.getCity());
+        user.setGender(dto.getGender());
         return user;
     }
 

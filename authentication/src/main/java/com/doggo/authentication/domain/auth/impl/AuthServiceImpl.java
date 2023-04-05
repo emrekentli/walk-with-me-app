@@ -22,11 +22,15 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserDto signUp(SignUpDto dto) {
-        UserDto userDto = UserDto.builder().phoneNumber(dto.getPhoneNumber())
-                .emailAddress(dto.getEmailAddress())
-                .firstName(dto.getFirstName())
-                .lastName(dto.getLastName())
+        UserDto userDto = UserDto.builder()
+                .name(dto.getName())
+                .surname(dto.getSurname())
+                .email(dto.getEmail())
+                .phoneNumber(dto.getPhoneNumber())
                 .password(dto.getPassword())
+                .city(dto.getCity())
+                .birthDate(dto.getBirthDate())
+                .gender(dto.getGender())
                 .build();
         return userService.createUser(userDto);
     }
