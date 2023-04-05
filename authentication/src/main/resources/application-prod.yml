@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: authentication
+  main:
+    allow-circular-references: true
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driverClassName: org.postgresql.Driver
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      #ddl-auto possible values: none, validate, update, create-drop
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO}
+    show-sql: true
+server:
+  port: 8989
+eureka:
+  client:
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${DEUREKA_SERVER}
