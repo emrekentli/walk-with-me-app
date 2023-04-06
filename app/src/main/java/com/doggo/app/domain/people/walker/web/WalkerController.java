@@ -21,6 +21,11 @@ public class WalkerController extends BaseController {
       var walker = service.createWalker(request.toDto());
       return respond(WalkerResponse.toResponse(walker));
     }
+    @GetMapping("/{id}")
+    public Response<WalkerResponse> getWalker(@PathVariable String id) {
+        var walker = service.getWalker(id);
+        return respond(WalkerResponse.toResponse(walker));
+    }
     @GetMapping
     public Response<DataResponse<WalkerResponse>> getWalkers() {
         List<WalkerDto> walkers = service.getWalkers();

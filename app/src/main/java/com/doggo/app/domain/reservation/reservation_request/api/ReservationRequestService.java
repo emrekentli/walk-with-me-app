@@ -8,4 +8,8 @@ public interface ReservationRequestService {
     List<ReservationRequestDto> getReservationRequests();
 
     ReservationRequestDto getReservationRequest(String id);
+
+    ReservationRequestDto updateReservationRequest(String id, ReservationRequestDto toDto);
+
+    List<ReservationRequestDto> getReservationRequestsByCustomer(String id);
 }

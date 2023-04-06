@@ -1,7 +1,9 @@
 package com.doggo.app.domain.reservation.reservation.web;
 
+import com.doggo.app.domain.people.walker.api.WalkerDto;
 import com.doggo.app.domain.reservation.reservation.api.ReservationDto;
 import com.doggo.app.domain.reservation.reservation.impl.ReservationStatus;
+import com.doggo.app.domain.reservation.reservation_request.api.ReservationRequestDto;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,9 +16,8 @@ public class ReservationResponse {
     private final Date created;
     private final Date modified;
     private final ReservationStatus status;
-    private final String animalId;
-    private final String walkerId;
-    private final String requestId;
+    private final WalkerDto walkerId;
+    private final ReservationRequestDto request;
     private final Date startDate;
     private final Date endDate;
 
@@ -26,9 +27,8 @@ public class ReservationResponse {
                 .created(dto.getCreated())
                 .modified(dto.getModified())
                 .status(dto.getStatus())
-                .animalId(dto.getAnimalId())
-                .walkerId(dto.getWalkerId())
-                .requestId(dto.getRequestId())
+                .walkerId(dto.getWalkerDto())
+                .request(dto.getRequestDto())
                 .startDate(dto.getStartDate())
                 .endDate(dto.getEndDate())
                 .build();

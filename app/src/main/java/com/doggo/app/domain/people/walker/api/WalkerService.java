@@ -6,4 +6,6 @@ public interface WalkerService {
     WalkerDto createWalker(WalkerDto dto);
 
     List<WalkerDto> getWalkers();
+
+    WalkerDto getWalker(String id);
 }

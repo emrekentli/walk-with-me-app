@@ -17,15 +17,12 @@ import java.util.Date;
 @Table(name = Reservation.TABLE)
 public class Reservation extends AbstractEntity {
     public static final String TABLE = "reservation";
-    public static final String COL_ANIMAL_ID = "animal_id";
     public static final String COL_REQUEST_ID = "request_id";
     public static final String COL_WALKER_ID = "walker_id";
     public static final String COL_RESERVATION_START_DATE = "start_date";
     public static final String COL_RESERVATION_END_DATE = "end_date";
     public static final String COL_STATUS = "status";
 
-    @Column(name = COL_ANIMAL_ID, nullable = false)
-    private String animalId;
     @Column(name = COL_WALKER_ID, nullable = false)
     private String walkerId;
     @Column(name = COL_REQUEST_ID, nullable = false)

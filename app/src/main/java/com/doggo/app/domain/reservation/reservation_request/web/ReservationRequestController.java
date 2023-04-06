@@ -21,9 +21,19 @@ public class ReservationRequestController extends BaseController {
       var reservationRequest = service.createReservationRequest(request.toDto());
       return respond(ReservationRequestResponse.toResponse(reservationRequest));
     }
+    @PutMapping("/{id}")
+    public Response<ReservationRequestResponse> updateReservationRequest(@PathVariable String id, @Valid @RequestBody ReservationRequestRequest request) {
+        var reservationRequest = service.updateReservationRequest(id, request.toDto());
+        return respond(ReservationRequestResponse.toResponse(reservationRequest));
+    }
     @GetMapping
     public Response<DataResponse<ReservationRequestResponse>> getReservationRequests() {
         List<ReservationRequestDto> reservationRequests = service.getReservationRequests();
+        return respond(toResponse(reservationRequests));
+    }
+    @GetMapping("/customer/{id}")
+    public Response<DataResponse<ReservationRequestResponse>> getReservationRequestsByCustomer(@PathVariable String id) {
+        List<ReservationRequestDto> reservationRequests = service.getReservationRequestsByCustomer(id);
         return respond(toResponse(reservationRequests));
     }
     @GetMapping("/{id}")

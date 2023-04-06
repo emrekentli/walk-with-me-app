@@ -1,7 +1,9 @@
 package com.doggo.app.domain.reservation.reservation.web;
 
+import com.doggo.app.domain.people.walker.api.WalkerDto;
 import com.doggo.app.domain.reservation.reservation.api.ReservationDto;
 import com.doggo.app.domain.reservation.reservation.impl.ReservationStatus;
+import com.doggo.app.domain.reservation.reservation_request.api.ReservationRequestDto;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,8 +15,6 @@ import java.util.Date;
 @Data
 @Builder
 public class ReservationRequest {
-    @NotBlank
-    private final String animalId;
     @NotBlank
     private final String walkerId;
     @NotBlank
@@ -30,9 +30,8 @@ public class ReservationRequest {
 
  public ReservationDto toDto() {
   return ReservationDto.builder()
-          .animalId(animalId)
-            .walkerId(walkerId)
-            .requestId(requestId)
+            .walkerDto(WalkerDto.builder().id(walkerId).build())
+            .requestDto(ReservationRequestDto.builder().id(requestId).build())
             .startDate(startDate)
             .endDate(endDate)
           .status(status)

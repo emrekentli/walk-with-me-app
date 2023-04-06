@@ -29,6 +29,11 @@ public class WalkerServiceImpl implements WalkerService {
         return repository.findAll().stream().map(this::toDto).toList();
     }
 
+    @Override
+    public WalkerDto getWalker(String id) {
+        return toDto(repository.findById(id).orElseThrow());
+    }
+
     private WalkerDto toDto(Walker walker) {
         return WalkerDto.builder()
                 .id(walker.getId())
