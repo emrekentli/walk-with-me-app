@@ -10,4 +10,10 @@ public interface AnimalService {
     AnimalDto updateAnimal(String id, AnimalDto dto);
 
     void deleteAnimal(String id);
+
+    AnimalDto getAnimal(String id);
+
+    List<AnimalDto> filterAnimals(AnimalDto animalDto);
+
+    List<AnimalDto> getAnimalsByCustomerId(String id);
 }

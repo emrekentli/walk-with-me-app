@@ -29,7 +29,7 @@ public class DefaultConfig {
         return Arrays.stream(urlsStrings.split(",")).toList();
     }
 
-    private static final String DEPARTMENT = "department";
+    private static final String APP = "app";
     private static final String PANEL_APPLICATION = "panel-application";
     private static final String AUTHENTICATION = "authentication";
     private static final String SERVICE_ROUTE = "-service-route";
@@ -55,7 +55,7 @@ public class DefaultConfig {
         return builder.routes()
                 .route(AUTHENTICATION + SERVICE_ROUTE, getPredicateSpecBuildableFunction(AUTHENTICATION ))
                 .route(PANEL_APPLICATION + SERVICE_ROUTE, getPredicateSpecBuildableFunction(PANEL_APPLICATION ))
-                .route(DEPARTMENT + SERVICE_ROUTE, getPredicateSpecBuildableFunction(DEPARTMENT ))
+                .route(APP + SERVICE_ROUTE, getPredicateSpecBuildableFunction(APP))
                 .build();
     }
 

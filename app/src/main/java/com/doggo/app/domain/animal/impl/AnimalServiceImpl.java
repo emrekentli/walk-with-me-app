@@ -3,7 +3,9 @@ package com.doggo.app.domain.animal.impl;
 import com.doggo.app.domain.animal.api.AnimalDto;
 import com.doggo.app.domain.animal.api.AnimalService;
 import com.doggo.app.domain.animal.impl.type.AnimalTypeServiceImpl;
+import com.doggo.app.domain.people.customer.impl.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
@@ -16,6 +18,7 @@ import java.util.List;
 public class AnimalServiceImpl implements AnimalService {
     private final AnimalRepository repository;
     private final AnimalTypeServiceImpl animalTypeService;
+    private final CustomerServiceImpl customerService;
 
     @Override
     @Transactional
@@ -43,16 +46,30 @@ public class AnimalServiceImpl implements AnimalService {
         repository.delete(repository.findById(id).orElseThrow(EntityExistsException::new));
     }
 
-    public Animal getAnimal(String id) {
-        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
+    public AnimalDto getAnimal(String id) {
+        return toDto(repository.findById(id).orElseThrow(EntityNotFoundException::new));
     }
+
+    @Override
+    public List<AnimalDto> filterAnimals(AnimalDto animalDto) {
+        Animal animal = toEntity(new Animal(),animalDto);
+        return repository.findAll(Example.of(animal)).stream().map(this::toDto).toList();
+    }
+
+    @Override
+    public List<AnimalDto> getAnimalsByCustomerId(String id) {
+        return repository.findAllByCustomerId(id).stream()
+                .map(this::toDto)
+                .toList();
+    }
+
 
     public Animal toEntity(Animal animal, AnimalDto dto) {
         animal.setWeight(dto.getWeight());
         animal.setAnimalType(animalTypeService.getEntityById(dto.getAnimalType().getId()));
         animal.setAge(dto.getAge());
         animal.setBreed(dto.getBreed());
-        animal.setCustomerId(dto.getCustomerId());
+        animal.setCustomerId(dto.getCustomer().getId());
         return animal;
     }
 
@@ -65,7 +82,7 @@ public class AnimalServiceImpl implements AnimalService {
                 .weight(animal.getWeight())
                 .age(animal.getAge())
                 .breed(animal.getBreed())
-                .customerId(animal.getCustomerId())
+                .customer(customerService.getCustomer(animal.getCustomerId()))
                 .build();
     }
 }

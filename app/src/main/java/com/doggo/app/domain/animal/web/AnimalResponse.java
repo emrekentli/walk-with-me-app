@@ -2,6 +2,7 @@ package com.doggo.app.domain.animal.web;
 
 import com.doggo.app.domain.animal.api.AnimalDto;
 import com.doggo.app.domain.animal.api.type.AnimalTypeDto;
+import com.doggo.app.domain.people.customer.api.CustomerDto;
 import lombok.Builder;
 import lombok.Data;
 
@@ -15,7 +16,7 @@ public class AnimalResponse {
     private final Date modified;
     private final Double weight;
     private final Integer age;
-    private final String customerId;
+    private final CustomerDto customer;
     private final AnimalTypeDto animalType;
     private String breed;
 
@@ -26,7 +27,7 @@ public class AnimalResponse {
                 .modified(dto.getModified())
                 .weight(dto.getWeight())
                 .animalType(dto.getAnimalType())
-                .customerId(dto.getCustomerId())
+                .customer(dto.getCustomer())
                 .age(dto.getAge())
                 .breed(dto.getBreed())
                 .build();
