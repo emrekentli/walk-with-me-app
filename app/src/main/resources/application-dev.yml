@@ -2,7 +2,7 @@ server:
   port: 9051
 spring:
   application:
-    name: department
+    name: app
   datasource:
     url: jdbc:postgresql://localhost:5432/app
     username: postgres

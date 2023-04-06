@@ -1,13 +1,10 @@
 package com.doggo.authentication.domain.user.impl;
-
-import com.doggo.authentication.domain.auth.api.SignInDto;
-import com.doggo.authentication.domain.auth.api.exception.UserAlreadyException;
-import com.doggo.authentication.domain.auth.api.exception.UserValidationException;
 import com.doggo.authentication.domain.user.api.UserDto;
 import com.doggo.authentication.domain.user.api.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
 @RequiredArgsConstructor
@@ -17,18 +14,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto dto) {
-        User user = null;
-        try {
-            user = repository.findUserByPhoneNumber(dto.getPhoneNumber()).get();
-            if (user != null) {
-                throw new UserAlreadyException();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            user = setUser(dto);
-        }
-
-        return repository.save(user).toDto();
+        repository.findUserByPhoneNumber(dto.getPhoneNumber())
+                .ifPresent(user -> {
+                    throw new EntityExistsException("User already exists");
+                });
+        return repository.save(setUser(dto)).toDto();
     }
 
     @Override
@@ -45,23 +35,18 @@ public class UserServiceImpl implements UserService {
                 .toDto();
     }
 
-    @Override
-    public UserDto getUserByCreadentional(SignInDto dto) throws Exception {
-        UserDto userDto =
-                repository.findUserByPhoneNumberAndPassword(dto.getPhoneNumber(), dto.getPassword())
-                        .orElseThrow(UserValidationException::new)
-                        .toDto();
-        return userDto;
-    }
 
 
     private User setUser(UserDto dto) {
         User user = new User();
-        user.setPassword(dto.getPassword());
-        user.setFirstName(dto.getFirstName());
-        user.setLastName(dto.getLastName());
+        user.setName(dto.getName());
         user.setPhoneNumber(dto.getPhoneNumber());
-        user.setEmailAddress(dto.getEmailAddress());
+        user.setPassword(dto.getPassword());
+        user.setEmailAddress(dto.getEmail());
+        user.setSurname(dto.getSurname());
+        user.setBirthDate(dto.getBirthDate());
+        user.setCity(dto.getCity());
+        user.setGender(dto.getGender());
         return user;
     }
 

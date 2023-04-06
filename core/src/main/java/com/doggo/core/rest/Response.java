@@ -3,21 +3,21 @@ package com.doggo.core.rest;
 public class Response<T> {
 
     private T data;
-    private ErrorResponse errors;
+    private MetaResponse meta;
 
     public Response() {
     }
 
-    public Response(ErrorResponse errors) {
-        this.errors = errors;
+    public Response(MetaResponse meta) {
+        this.meta = meta;
     }
 
     public Response(T data) {
         this.data = data;
     }
 
-    public ErrorResponse getErrors() {
-        return errors;
+    public MetaResponse getMeta() {
+        return meta;
     }
 
     public T getData() {
